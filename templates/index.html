@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brain Tumor Detection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background:#f4f7fc;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        .container{
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 4px 15px rgba(0,0,0,0.15);
+            width:500px;
+            text-align:center;
+        }
+
+        h1{
+            color:#2c3e50;
+            margin-bottom:20px;
+        }
+
+        .upload-box{
+            border:2px dashed #3498db;
+            padding:20px;
+            border-radius:10px;
+            margin-bottom:20px;
+        }
+
+        input[type="file"]{
+            margin-top:10px;
+        }
+
+        button{
+            background:#3498db;
+            color:white;
+            border:none;
+            padding:12px 25px;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#2980b9;
+        }
+
+        img{
+            margin-top:20px;
+            width:250px;
+            border-radius:10px;
+        }
+
+        .result{
+            margin-top:20px;
+            font-size:22px;
+            font-weight:bold;
+        }
+
+        .tumor{
+            color:red;
+        }
+
+        .notumor{
+            color:green;
+        }
+
+        .confidence{
+            margin-top:10px;
+            font-size:18px;
+            color:#555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🧠 Brain Tumor Detection</h1>
+
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+
+        <div class="upload-box">
+            <h3>Upload MRI Scan</h3>
+            <input type="file" name="file" required>
+        </div>
+
+        <button type="submit">Predict</button>
+
+    </form>
+
+    {% if image_path %}
+        <img src="{{ image_path }}">
+    {% endif %}
+
+    {% if prediction %}
+        <div class="result
+        {% if prediction == 'Tumor Detected' %}
+            tumor
+        {% else %}
+            notumor
+        {% endif %}
+        ">
+            {{ prediction }}
+        </div>
+
+        <div class="confidence">
+            Confidence: {{ confidence }}%
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
